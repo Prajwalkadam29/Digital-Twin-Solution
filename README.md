@@ -657,12 +657,6 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 ---
 
-## License
-
-[Add your license information here]
-
----
-
 ## Support & Documentation
 
 For additional help:

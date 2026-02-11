@@ -1,0 +1,205 @@
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "byte-astra"
+version = "1.0.0"
+description = "Industrial Lathe Digital Twin & Predictive Maintenance System"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Development Team", email = "dev@byte-astra.com"}
+]
+keywords = [
+    "digital-twin",
+    "predictive-maintenance",
+    "industrial-iot",
+    "machine-monitoring",
+    "flask",
+    "mongodb",
+    "machine-learning"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Web Environment",
+    "Framework :: Flask",
+    "Intended Audience :: Manufacturing",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: System :: Monitoring"
+]
+
+dependencies = [
+    "Flask>=2.2",
+    "flask-cors>=4.0.0",
+    "flask-socketio>=5.0.0",
+    "flask-wtf>=1.0.0",
+    "flask-login>=0.6.0",
+    "pymongo>=4.0.0",
+    "python-dotenv>=0.20.0",
+    "gevent>=21.0.0",
+    "gevent-websocket>=0.10.0",
+    "eventlet>=0.30.0",
+    "numpy>=1.21.0",
+    "pandas>=1.3.0",
+    "scikit-learn>=1.0.0",
+    "requests>=2.27.0",
+    "matplotlib>=3.5.0",
+    "scipy>=1.7.0",
+    "gunicorn>=20.1.0",
+    "Werkzeug>=2.0.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=3.0.0",
+    "black>=22.0.0",
+    "flake8>=4.0.0",
+    "pylint>=2.12.0",
+    "mypy>=0.930",
+    "isort>=5.10.0",
+    "pre-commit>=2.16.0"
+]
+
+testing = [
+    "pytest>=7.0.0",
+    "pytest-cov>=3.0.0",
+    "pytest-flask>=1.2.0",
+    "mongomock>=4.1.0"
+]
+
+docs = [
+    "sphinx>=4.5.0",
+    "sphinx-rtd-theme>=1.0.0",
+    "sphinx-autodoc-typehints>=1.12.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/Prajwalkadam29/Digital-Twin-Solution"
+Documentation = "https://github.com/Prajwalkadam29/Digital-Twin-Solution/blob/main/README.md"
+Repository = "https://github.com/Prajwalkadam29/Digital-Twin-Solution.git"
+Issues = "https://github.com/Prajwalkadam29/Digital-Twin-Solution/issues"
+Project Demo Video = "https://drive.google.com/file/d/1IRrvPWl_57UOWtByByqDPxO8pcnhVEpO/view?usp=sharing"
+
+[tool.setuptools]
+packages = ["app"]
+
+[tool.setuptools.package-data]
+app = [
+    "static/*.css",
+    "templates/*.html"
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py38", "py39", "py310", "py311"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  | migrations
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 100
+multi_line_mode = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+skip_gitignore = true
+skip = ["venv", ".venv", "migrations"]
+
+[tool.pylint.messages_control]
+disable = [
+    "C0330",
+    "C0326",
+    "R0913",
+    "R0914"
+]
+
+[tool.pylint.format]
+max-line-length = 100
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+check_untyped_defs = false
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+strict_optional = true
+
+[[tool.mypy.overrides]]
+module = [
+    "pymongo.*",
+    "gevent.*",
+    "eventlet.*",
+    "sklearn.*",
+    "matplotlib.*",
+    "scipy.*"
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers --tb=short"
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+
+[tool.coverage.run]
+source = ["app"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "setup.py"
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "if typing.TYPE_CHECKING:",
+    "@abstractmethod",
+    "class .*\\bProtocol\\):",
+]
+precision = 2
+
+[tool.coverage.html]
+directory = "htmlcov"
+
+[tool.pdm]
+# Python Dependency Manager configuration (optional)
+version = {source = "file", path = "app/__init__.py"}
